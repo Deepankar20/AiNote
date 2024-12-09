@@ -12,6 +12,12 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontSize: {
+        'h1': '2.5rem',
+        'h2': '2rem',
+        'h3': '1.75rem',
+        // other font sizes for headings
+      },
     },
   },
   plugins: [],

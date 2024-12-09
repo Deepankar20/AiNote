@@ -1,65 +1,69 @@
-import { EditorContent, FloatingMenu, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import React, { useEffect } from 'react'
+"use client";
+
+import { EditorContent, useEditor } from "@tiptap/react";
+import { useState } from "react";
+import StarterKit from "@tiptap/starter-kit";
+import { TextStyle } from '@tiptap/extension-text-style';
 
 export default () => {
+  const [isEditable, setIsEditable] = useState(true);
+  console.log(isEditable);
+  
+
+  // Initialize the editor instance
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-    ],
+    extensions: [StarterKit, TextStyle],
     content: `
-      <p>
-        This is an example of a Medium-like editor. Enter a new line and some buttons will appear.
-      </p>
-      <p></p>
+      <h1>This is a heading 1</h1>
+      <p>This is a <strong>bold</strong> paragraph.</p>
+      <h2>This is a heading 2</h2>
+      <ul>
+        <li>This is a bullet point 1</li>
+        <li>This is a bullet point 2</li>
+      </ul>
+      <p>This is a paragraph with <strong>bold</strong> text and <em>italic</em> text.</p>
     `,
-  })
 
-  const [isEditable, setIsEditable] = React.useState(true)
-
-  useEffect(() => {
-    if (editor) {
-      editor.setEditable(isEditable)
-    }
-  }, [isEditable, editor])
+    immediatelyRender: false,
+    editable:isEditable
+  });
 
   return (
     <>
       <div className="control-group">
         <label>
-          <input type="checkbox" checked={isEditable} onChange={() => setIsEditable(!isEditable)} />
+          <input
+            type="checkbox"
+            checked={isEditable}
+            onChange={() => setIsEditable(!isEditable)}
+            className="m-[1rem]"
+          />
           Editable
         </label>
       </div>
-      
-      {editor && (
-        <FloatingMenu editor={editor} tippyOptions={{ duration: 100 }}>
-          <div className="floating-menu flex bg-gray-300 text-black p-1 rounded-lg">
-            <button
-              onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-              className={`p-1.5 rounded-md ${editor.isActive('heading', { level: 1 }) ? 'bg-white text-purple-600 hover:text-purple-800' : 'hover:bg-gray-400'}`}
-            >
-              H1
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-              className={`p-1.5 rounded-md ${editor.isActive('heading', { level: 2 }) ? 'bg-white text-purple-600 hover:text-purple-800' : 'hover:bg-gray-400'}`}
-            >
-              H2
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleBulletList().run()}
-              className={`p-1.5 rounded-md ${editor.isActive('bulletList') ? 'bg-white text-purple-600 hover:text-purple-800' : 'hover:bg-gray-400'}`}
-            >
-              Bullet list
-            </button>
-          </div>
-        </FloatingMenu>
-      )}
 
-      <div className="tiptap">
+      {/* Toolbar */}
+
+      {/* Editor content section */}
+      <div className="focus:outline-none active:outline-none mt-4">
         <EditorContent editor={editor} />
       </div>
+
+      <style jsx global>{`
+        .ProseMirror {
+          outline: none !important; /* Remove the outline */
+          border: none !important; /* Remove any border */
+        }
+
+        .ProseMirror:focus {
+          outline: none !important; /* Ensure no outline when focused */
+          border: none !important; /* Ensure no border when focused */
+        }
+
+        .editor-wrapper {
+          border: none;
+        }
+      `}</style>
     </>
-  )
-}
+  );
+};
