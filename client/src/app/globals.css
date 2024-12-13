@@ -2,20 +2,158 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root{
+  background-color: #171717;
+  color: white;
+  font-family: ui-sans-serif, -apple-system, system-ui, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+.tiptap ol li::marker {
+  color: white; /* Explicitly set the color to white */
+}
+.tiptap {
+  /* Add padding to the entire editor content */
+  padding: 1rem; /* Adjust as needed */
+  background-color: #030303; /* Optional: Set editor background color */
+  color: white; /* Optional: Set text color for readability */
+
+  ul,
+  ol {
+    padding-left: 1.5rem; /* Adjust padding for lists */
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+
+    li {
+      display: list-item;
+      margin-left: 0; /* Ensure no extra margin */
+      text-indent: 0; /* Remove any text indentation */
+
+      p {
+        margin-top: 0.25em;
+        margin-bottom: 0.25em;
+      }
+
+      &::marker {
+        color: #e80808; /* Change bullet color if needed */
+        font-size: 0.8em; /* Adjust size of the marker */
+        margin-right: -0.5em; /* Reduce space between marker and text */
+      }
+    }
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  p {
+    /* Add padding around paragraphs */
+    margin: 0 0 1rem;
+  }
+
+  blockquote {
+    border-left: 4px solid #4b5563; /* Subtle gray border */
+    background-color: #2d2d2d; /* Slightly lighter background for blockquote */
+    margin: 0.5rem 0; /* Vertical spacing */
+    padding: 0.5rem; /* Add padding for better readability */
+    color: #e5e5e5; /* Light text for readability */
+    font-style: italic; /* Traditional blockquote style */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add some depth */
+    position: relative; /* Ensure pseudo-elements behave correctly */
+  }
+
+  pre {
+    border-radius: 0.5rem;
+    color: var(--white);
+    font-family: "JetBrainsMono", monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+    background-color: #616161;
+
+    code {
+      background: none;
+      color: inherit;
+      font-size: 0.8rem;
+      padding: 0;
+    }
+
+    /* Code styling */
+    .hljs-comment,
+    .hljs-quote {
+      color: #616161;
+    }
+
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-attribute,
+    .hljs-tag,
+    .hljs-regexp,
+    .hljs-link,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class {
+      color: #f98181;
+    }
+
+    .hljs-number,
+    .hljs-meta,
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-type,
+    .hljs-params {
+      color: #fbbc88;
+    }
+
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #b9f18d;
+    }
+
+    .hljs-title,
+    .hljs-section {
+      color: #faf594;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+      color: #70cff8;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: 700;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: white;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  b,
+  strong {
+    color: white;
+  }
+
+  .is-empty::before {
+    color: gray;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
 }
